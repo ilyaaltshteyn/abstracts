@@ -1,4 +1,4 @@
-Abstracts
+Abstracts metascience project
 =========
 Please keep repository clean by removing files when they become unnecessary.
 
