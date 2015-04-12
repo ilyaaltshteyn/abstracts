@@ -1,0 +1,48 @@
+Analysis ideas, notes and questions to answer.
+
+There are 172,473 abstract URLs from exactly 100 journals from PsycNET.
+
+Please shorten all links with bit.ly
+
+			-----------------------------------------------------------
+								 ***Data sources***
+			-----------------------------------------------------------
+
+
+1. Data about bachelors degrees taken from Randal Olsen, here: http://bit.ly/1pz1a4g
+2. Data about phds in psych taken from National Center for Education Stats, here: http://1.usa.gov/1DmQpni
+
+			-----------------------------------------------------------
+								 ***Questions to answer***
+			-----------------------------------------------------------
+
+The numbered questions are broad formulations of the questions. Bullet points add increasing detail with ideas for how to answer the numbered questions.
+
+1. How does paper length affect # of citations?
+	http://bit.ly/1wtkOfV - In astronomy, longer papers get more cites.
+	http://bit.ly/1BfnFNE - More references leads to more citations in Science papers, but see here for a critique: http://bit.ly/1xalD23
+
+2. What are the trendiest topics for each of the past 20 years? How do their popularities change over time?
+	http://bit.ly/1tpfMGI - Trends of research topics in Ev Psych. Also shows that citing more papers leads to more citations.
+3. 
+
+			-----------------------------------------------------------
+									 ***Data to add***
+			-----------------------------------------------------------
+Things to fix:
+1. All pull errors for journal name should be fixable, because all entries in a given file are from the same journal.
+
+Columns to add from existing data:
+1. Split authors column into separate authors by first and last name.
+2. Add columns that show the character count and the word count in the abstract.
+3. Split dates into separate day/month/year columns.
+4. Remove all non-numerical characters from firstpage column. 
+
+Data to add:
+1. Citation counts for papers
+	-Pull these from CrossRef
+		*Their API uses OpenURL
+		*Go here for info: http://articlemetrics.github.io/docs/crossref/
+		*The OpenURL request also returns the editor's name, which could be useful!
+		*Also, read the documentation for rcrossref, which can help you pull random APIs and APIs for articles that are available free of charge for direct download: https://github.com/ropensci/rcrossref
+

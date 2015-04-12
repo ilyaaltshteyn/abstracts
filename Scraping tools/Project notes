@@ -1,0 +1,3 @@
+These scripts pull abstracts from psycnet and sagepub journals.
+
+The journal 'cap' has non-standard volume numbers and the code doesn't work on it.

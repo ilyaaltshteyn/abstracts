@@ -1,0 +1,19 @@
+#THIS SCRIPT DOESN'T WORK!!! JUST SAVING IT AS A TEMPLATE FOR A LITTLE WHILE
+
+import urllib2
+#Fetch data from http://www.crossref.org/openurl/?pid=ilyaaltshteyn@gmail.com&id=doi:10.1037/a0033948&noredirect=true
+
+pid = 'ilyaaltshteyn@gmail.com'
+doi = '10.1037/a0032516'
+
+url = 'http://www.crossref.org/openurl/?pid=' + pid + '&id=doi:' + doi + '&noredirect=true'
+
+response = urllib2.urlopen(url)
+xml = response.read()
+
+
+
+
+
+
+

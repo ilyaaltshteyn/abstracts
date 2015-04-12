@@ -1,0 +1,3 @@
+Presentation of data ideas:
+
+Add a "bonus" feature to the presentation page that contains funny abstracts from Greg's collection.
