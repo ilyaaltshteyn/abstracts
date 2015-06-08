@@ -1,8 +1,8 @@
 ####Abstracts metascience project
 
-This project is currently on hold while I finish the [Metis](thisismetis.com) datascience bootcamp.
-
 There's a writeup for this project under development on my website: [ilyaaltshteyn.com](ilyaaltshteyn.com)
+
+The project is currently on hold while I finish the [Metis](thisismetis.com) datascience bootcamp.
 
 =========
 
