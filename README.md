@@ -1,6 +1,10 @@
 Abstracts metascience project
+
+This project is currently on hold while I finish the [Metis](thisismetis.com) datascience bootcamp.
+
+There's a writeup for this project under development on my website: [ilyaaltshteyn.com](ilyaaltshteyn.com)
 =========
 
-See wiki page for project outline and details: https://github.com/ilyuh/abstracts/wiki
+See wiki page for outline and some details: https://github.com/ilyuh/abstracts/wiki
 
-To see a sample raw datafile with abstracts, click on "sample-raw-datafile.csv", then click the "raw" button, then copy-paste the csv content into a text doc and open it with Excel or whatever. 
+"sample-raw-datafile.csv" has some sample data.
