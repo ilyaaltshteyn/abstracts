@@ -70,61 +70,68 @@ plt.style.use('ggplot')
 
 to_plot = counts_four_plus.iloc[:-1,1:]
 to_plot.plot(kind = 'line')
-plt.title('Counts of papers that have at least 4 authors, with first and third author\ngender. Significance of chi square test under x axis.')
-plt.axis([1970, 2013, -50,800])
+plt.title('Number of papers with 4+ authors, as a function of\nauthorship position (1st or 3rd) and gender, 1970-2013.')
+plt.axis([1970, 2014, -50,800])
+plt.ylabel('Number of papers')
 for y in years[:-1]:
     print y
-    if chi_sq(y, counts_four_plus)[1] < .01:
-        plt.annotate('**', xy = (y, -20), rotation = 45, color = 'green')
-    elif chi_sq(y, counts_four_plus)[1] < .05:
-        plt.annotate('*', xy = (y, -20), rotation = 45, color = 'green')
+    # if chi_sq(y, counts_four_plus)[1] < .01:
+    #     plt.annotate('**', xy = (y, -20), rotation = 45, color = 'green', fontsize = 18)
+    if chi_sq(y, counts_four_plus)[1] < .05:
+        plt.annotate('*', xy = (y-1, -25), rotation = 45, color = 'green', fontsize = 18)
     # else:
     #     plt.annotate('o', xy = (y, -20))
-    if chi_sq(y, counts_four_plus, gender_info = 'male')[1] < .01:
-        plt.annotate('**', xy = (y, -40), rotation = 45, color = 'red')
-    elif chi_sq(y, counts_four_plus, gender_info = 'male')[1] < .05:
-        plt.annotate('*', xy = (y, -40), rotation = 45, color = 'red')
+    # if chi_sq(y, counts_four_plus, gender_info = 'male')[1] < .01:
+    #     plt.annotate('**', xy = (y, -40), rotation = 45, color = 'red', fontsize = 18)
+    if chi_sq(y, counts_four_plus, gender_info = 'male')[1] < .05:
+        plt.annotate('*', xy = (y-1, -45), rotation = 45, color = 'red', fontsize = 18)
     # else:
     #     plt.annotate('o', xy = (y, -40))
 
 plt.show()
 
-#       Plot the percent of papers with female first and third authors:
+#  Plot the ratio of the count of papers with a female first author and a female 
+# third author, by year. Regress ratio on year to find out how strong the effect is.
 
-counts_four_plus['total'] = counts_four_plus.male_first + counts_four_plus.male_third \
-    + counts_four_plus.female_first + counts_four_plus.female_third
-
-counts_four_plus['Percent_female_first'] = counts_four_plus.female_first/counts_four_plus.total
-counts_four_plus['Percent_female_third'] = counts_four_plus.female_third/counts_four_plus.total
-
-to_plot = counts_four_plus.iloc[:-1, 1:]
-to_plot.plot(kind = 'line')
-plt.title('Percent of papers with at least 4 authors that have a\n female first author or a female third author.')
-plt.show()
-
-#   Now plot just the difference between the percent of papers with female first
-# and third authors, across time:
-
-to_plot['percent_difference'] = to_plot.Percent_female_third - to_plot.Percent_female_first
-to_plot['year'] = to_plot.index
-to_plot.plot(kind = 'scatter', x = 'year', y = 'percent_difference')
-plt.title('Difference between the % of papers with a female first author \n\
-and the percent of papers with a female third author, by year.')
-plt.show()
-
-#  Now do a similar thing: plot the ratio of the count of papers with a female
-# first author and a female third author, by year.
-to_plot = counts_four_plus.iloc[:-1, 3:-3]
+to_plot = counts_four_plus.iloc[:-1, 3:]
 to_plot['year'] = to_plot.index
 to_plot['ratio'] = to_plot.female_first / to_plot.female_third
 to_plot.plot(kind = 'scatter', x = 'year', y = 'ratio')
 plt.title('Ratio of the number of papers with female first authors to\nnumber of papers with female first authors, by year.')
 plt.ylabel('Number of first author women/number of third author women')
 plt.axis([1968, 2015,0,1.3])
+
+# DONT PLOT YET! First, run the linear regression to find out whether or not the
+# ratio has changed over time.
+import statsmodels.formula.api as smf
+
+lm = smf.ols(formula='ratio ~ year', data=to_plot).fit()
+print lm.summary()
+
+# Add regression line to plot:
+X_new = pd.DataFrame({'year': [to_plot.year.min(), to_plot.year.max()]})
+preds = lm.predict(X_new)
+plt.plot(X_new, preds, c = 'red')
+plt.annotate('R squared = %2f' % lm.rsquared, xy = (1980, 1))
 plt.show()
 
-#  Now run a linear regression on the data to find out whether or not the ratio
-# has changed over time.
+# Hist of model residuals:
+resids1 = lm.resid
+plt.hist(resids1.values, bins = 15)
+plt.show()
+
+# Residual plot against values of predictor:
+plt.scatter(x = resids1.index, y = resids1.values)
+plt.axhline(y = 0, color = 'black')
+plt.show()
+
+# Do a Breusch-Pagan for heteroskedasticity:
+from statsmodels.stats.diagnostic import het_breushpagan
+from statsmodels.tools.tools import add_constant
+yrs = add_constant(resids1.index)
+print het_breushpagan(resid = resids1, exog_het = yrs)
+# The error variance depends on the year!!! Ok, now what?
+
 
 
 
