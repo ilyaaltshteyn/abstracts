@@ -1,6 +1,6 @@
 ####Abstracts metascience project
 
-There's a writeup for this project under development on my website: [ilyaaltshteyn.com](ilyaaltshteyn.com)
+There's a writeup for this project on my website: [ilyaaltshteyn.com](https://www.ilyaaltshteyn.com)
 
 The project is currently on hold while I finish the [Metis](thisismetis.com) datascience bootcamp.
 
